@@ -28,14 +28,22 @@ class A
 
 class B extends A
 {
-    public $age;
+    private $age;
     public function __construct($nouveauPrenom, $nouveauNom, $nouvelAge)
     {
         /**Je ne peux pas écrire $this->prenom ici parce que la propriété est privée dans la classe A */
-        $this->setPrenom($nouveauPrenom);
-        $this->nom = $nouveauNom;
+        // $this->setPrenom($nouveauPrenom);
+        // $this->nom = $nouveauNom;
+        parent::__construct($nouveauNom, $nouveauPrenom);
         $this->age = $nouvelAge;
     }
+    /**Lorsqu'on a des propriétés privées, on doit définir des méthodes GETTER est SETTER pour ces propriétés. 
+     * Convention de nomage: 
+     * les méthodes GETTER commencent par 'get' 
+     * les méthodes SETTER commencent par 'set' 
+     * suivi du nom de la propriété (en utilisant le camelCase)
+     * 
+     */
 }
 class C extends B
 {
