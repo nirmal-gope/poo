@@ -28,7 +28,8 @@ class A
 
 class B extends A
 {
-    private $age;
+    /**Accessibilité PROTECTED: La protected ou la méthode ptotégée ast accessible dans la classe et dans les classes qui héritent. Comme pour PRIVATE, l'objet n'a pas accès à cette propriété ou méthode  */
+    protected $age;
     public function __construct($nouveauPrenom, $nouveauNom, $nouvelAge)
     {
         /**Je ne peux pas écrire $this->prenom ici parce que la propriété est privée dans la classe A */
@@ -44,10 +45,26 @@ class B extends A
      * suivi du nom de la propriété (en utilisant le camelCase)
      * 
      */
+    public function getAge()
+    {
+        return $this->age;
+    }
 }
 class C extends B
 {
     public $profession;
+    /**Ecrire une méthode qui retourne un string contenant toutes les informations de l'objet (nom, prenom, age, profession) */
+
+    public function identite()
+    {
+        $html = "<ul>";
+        $html .= "<li>Nom : " . $this->nom . "</li>";
+        $html .= "<li>Prénom : " . $this->getPrenom() . "</li>";
+        $html .= "<li>Age : " . $this->age . "</li>";
+        $html .= "<li>Profession : " . $this->profession . "</li>";
+        $html .= "</ul>";
+        return $html;
+    }
 }
 
 
@@ -71,5 +88,11 @@ $objB = new B("Mona", "Staire", 42);
 echo "<ul>";
 echo "<li>Nom : " . $objB->nom . "</li>";
 echo "<li>Prénom : " . $objB->getPrenom() . "</li>";
-echo "<li>Age: " . $objB->age . "</li>";
+echo "<li>Age: " . $objB->getAge() . "</li>";
 echo "</ul>";
+
+$personne = new C("Bruce", "Banner", 50);
+$personne->profession = "Professeur";
+$personne->getAge();
+/**La méthode identite() retourne un string, donc je peux  (je doit) l'utiliser comme un string */
+echo "<div>" . $personne->identite() . "</div>";

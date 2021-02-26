@@ -80,5 +80,5 @@ class Voiture
     $voitureProche = new voiture("Proche", "911 GT", "noire");
     echo $voitureProche->carteGrise();
 
-    $nouvelleVoiture = new voiture("Audi", "A4");
+    $nouvelleVoiture = new voiture("Audi", "A4",);
     echo $nouvelleVoiture->carteGrise();
