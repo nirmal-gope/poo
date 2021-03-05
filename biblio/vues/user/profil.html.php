@@ -1,22 +1,12 @@
-<?php 
-    include "includes/init.inc.php";
-    include "vues/header.html.php";
-    $abonne = isConnected();
-    if( empty($abonne) ){
-        header("Location: connexion.php");
-        exit;
-    }
-    $emprunts =  EmpruntsParAbonneId(2);
-?>
 <h1>Profil</h1>
 
 <ul class="list-group">
     <li class="list-group-item">
-        <strong>Pseudo</strong> : <?= $abonne["pseudo"] ?>
+        <strong>Pseudo</strong> : <?= $abonne->getPseudo() ?>
     </li>
 
     <li class="list-group-item">
-        <strong>Niveau</strong> : <?= $abonne["niveau"] >= 50 ? "Administrateur" : "Lecteur" ?>
+        <strong>Niveau</strong> : <?= $abonne->getNiveau() >= 50 ? "Administrateur" : "Lecteur" ?>
     </li>
 
     <li class="list-group-item">
@@ -51,11 +41,5 @@
                 <?php endforeach ?>
             </tbody>
         </table>
-
     </li>
-
-
 </ul>
-
-<?php 
-    include "vues/footer.html.php";

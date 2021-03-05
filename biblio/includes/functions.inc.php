@@ -1,34 +1,29 @@
 <?php
 
-function dateFr($datestr)
-{
+function dateFr($datestr){
     return $datestr ? date("d/m/y", strtotime($datestr)) : "";
 }
 
-function dump($variable)
-{
+function dump($variable){
     echo "<pre>";
     var_dump($variable);
     echo "</pre>";
 }
 
-function dd($variable)
-{
+function dd($variable){
     // Dump and die
     dump($variable);
     exit;
 }
 
 // UTILSATEUR
-function isConnected()
-{
+function isConnected(){
     return !empty($_SESSION["abonne"]) ? $_SESSION["abonne"] : false;
 }
 
-function isAdmin()
-{
+function isAdmin(){
     $abonne = isConnected();
-    if ($abonne && $abonne["niveau"] >= 50) {
+    if( $abonne && $abonne->getNiveau() >= 50){
         return $abonne;
     } else {
         return false;
@@ -36,8 +31,7 @@ function isAdmin()
 }
 
 
-function redirection($url)
-{
+function redirection($url){
     header("Location: $url");
     exit;
 }
@@ -48,8 +42,7 @@ function redirection($url)
  * @param string $type Equivalent à la classe Bootstrap
  * @param string $message Message à afficher
  */
-function ajouterMessage($type, $message)
-{
+function ajouterMessage($type, $message){
     $_SESSION["messages"][$type][] = $message;
 }
 
@@ -57,9 +50,8 @@ function ajouterMessage($type, $message)
  * Liste des messages d'alerte en attente
  * @return array
  */
-function messages($type)
-{
-    if (!empty($_SESSION["messages"][$type])) {
+function messages($type){
+    if( !empty($_SESSION["messages"][$type]) ){
         return $_SESSION["messages"][$type];
     } else {
         return [];
@@ -73,8 +65,7 @@ function messages($type)
  * Retourne un array contenant tous les enregistrements d'une table de la base de données
  * Le nom de la table est dans la variable $tableName
  */
-function selectAll($tableName)
-{
+function selectAll($tableName){
 
     global $pdo;
     $pdostatement = $pdo->query("SELECT * FROM " . $tableName);
@@ -95,7 +86,7 @@ function selectById($tableName, $id)
     // SELECT * FROM abonne WHERE id = 2
     global $pdo;
     $pdostatement = $pdo->query("SELECT * FROM $tableName WHERE id = $id");
-    if ($pdostatement) {
+    if( $pdostatement ){
         return $pdostatement->fetch(PDO::FETCH_ASSOC);
     } else {
         return false;
@@ -103,8 +94,7 @@ function selectById($tableName, $id)
 }
 
 
-function livresNonRendus()
-{
+function livresNonRendus(){
     global $pdo;
     $texteRequete = "SELECT l.id
                      FROM livre l JOIN emprunt e ON l.id = e.livre_id
@@ -113,38 +103,36 @@ function livresNonRendus()
     return $pdostatement->fetchAll(PDO::FETCH_COLUMN);
 }
 
-function EmpruntsParAbonneId(int $id)
-{
+function EmpruntsParAbonneId(int $id){
     global $pdo;
     $texteRequete = "SELECT * FROM emprunt e WHERE abonne_id = $id";
     $requete = $pdo->query($texteRequete);
     return $requete->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function insertInto(string $table, array $donnees)
-{
+function insertInto(string $table, array $donnees){
     $texteRequete = "INSERT INTO $table (";
-    $champs = array_keys($donnees); //array_keys retourne un array contenant les indices de donnees
+    $champs = array_keys($donnees); // array_keys retourne un array contenant les indices de $donnees
     $txtChamps = "";
-    foreach ($champs as $col) {
-        $txtChamps .= ($txtChamps ? ", " : "") . $col; //si txtChamps n'est pas vide, on ajouter une, sinon rien puis on ajoute le nom du champ
+    foreach($champs as $col){
+        $txtChamps .= ($txtChamps ? ", " : "") . $col;  // si txtChamps n'est pas vide, on ajoute une , sinon rien puis on ajoute le nom du champ
     }
     $texteRequete .= $txtChamps . ") VALUES (";
     $txtValeurs = "";
-    foreach ($champs as $param) {
+    foreach($champs as $param){
         $txtValeurs .= ($txtValeurs ? ", " : "") . ":$param";
     }
     $texteRequete .= "$txtValeurs)";
-
+    
     global $pdo;
     $pdostatement = $pdo->prepare($texteRequete);
-    foreach ($donnees as $ind => $valeur) {
-        $pdostatement->bindvalue(":$ind", $valeur);
-    }
+    foreach($donnees as $ind => $valeur){
+        $pdostatement->bindValue(":$ind", $valeur);
+    }    
     return $pdostatement->execute();
 }
 
-function lien($controleur, $methode, $id = null)
-{
+function lien($controleur, $methode, $id=null){
     return "?controleur=$controleur&methode=$methode" . ($id ? "&id=$id" : "");
 }
+

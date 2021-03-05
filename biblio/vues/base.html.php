@@ -30,8 +30,8 @@
                                 Abonnés
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="<?= lien("livre", "ajouter") ?>"><i class="fa fa-users"></i> Liste</a>
-                                <a class="dropdown-item" href="<?= lien("livre", "ajouter") ?>"><i class="fa fa-user-plus"></i> Ajouter</a>
+                                <a class="dropdown-item" href="<?= lien("abonne", "liste") ?>" ><i class="fa fa-users"></i> Liste</a>
+                                <a class="dropdown-item" href="<?= lien("abonne", "ajouter") ?>" ><i class="fa fa-user-plus"></i> Ajouter</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -48,8 +48,8 @@
                                 Emprunts
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="emprunt_liste.php"><i class="fa fa-file-export"></i> Liste</a>
-                                <a class="dropdown-item" href="emprunt_ajouter.php"><i class="fa fa-plus-square"></i> Ajouter</a>
+                                <a class="dropdown-item" href="<?= lien("emprunt", "liste") ?>"><i class="fa fa-file-export"></i> Liste</a>
+                                <a class="dropdown-item" href="<?= lien("emprunt", "ajouter") ?>"><i class="fa fa-plus-square"></i> Ajouter</a>
                             </div>
                         </li>
                     <?php endif; ?>
@@ -60,13 +60,13 @@
                         Je peux donc utiliser la variable $abonne dans le code du 'if'  -->
                     <?php if ($abonneConnecte = isConnected()) : ?>
 
-                        <li class=" nav-item">
-                            <a class="nav-link" href="profil.php">
-                                <?= $abonneConnecte["pseudo"] ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= lien("user", "profil") ?>">
+                                <?= $abonneConnecte->getPseudo() ?>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="deconnexion.php">
+                            <a class="nav-link" href="<?= lien("user", "deconnexion") ?>">
                                 <i class="fa fa-sign-out"></i>
                             </a>
                         </li>
@@ -74,7 +74,7 @@
                     <?php else : ?>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="connexion.php"> <i class="fa fa-sign-in"></i> </a>
+                            <a class="nav-link" href="<?= lien("user", "connexion") ?>"> <i class="fa fa-sign-in"></i> </a>
                         </li>
 
                     <?php endif; ?>
@@ -87,14 +87,24 @@
         </nav>
 
         <?php
-        if (isset($_SESSION["messages"])) {
-            foreach ($_SESSION["messages"] as $type => $messages) {
-                foreach ($messages as $msg) {
-                    echo "<div class='alert alert-$type'>$msg</div>";
+            if (isset($_SESSION["messages"])) {
+                foreach ($_SESSION["messages"] as $type => $messages) {
+                    foreach ($messages as $msg) {
+                        echo "<div class='alert alert-$type'>$msg</div>";
+                    }
                 }
             }
-        }
-        /* Pour supprimer une valeur précise d'un tableau, on peut utiliser la fonction unset($variable) 
+            /* Pour supprimer une valeur précise d'un tableau, on peut utiliser la fonction unset($variable) 
                 La fonction unset détruit une variable. Si on met une variable array avec un indice, seul cet indice est
                 supprimé. Par exemple unset($tableau[2]) ne détruit que la 3ième valeur de $tableau. */
-        unset($_SESSION["messages"]);
+            unset($_SESSION["messages"]);
+        ?>
+
+        <?= $contenu ?>
+
+    </div><!-- fin div class container -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+</body>
+</html>

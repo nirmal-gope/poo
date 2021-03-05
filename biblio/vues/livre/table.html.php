@@ -8,17 +8,17 @@
     </thead>
 
     <tbody>
-        <?php foreach ($livres as $livre) :  ?>
+        <?php foreach($livres as $livre):  ?>
             <tr>
-                <td><?= $livre["id"] ?></td>
+                <td><?= $livre->getId() ?></td>
                 <td>
-                    <img class="miniature" src="images/<?= $livre["couverture"] ?>" alt="<?= $livre["titre"] ?>">
+                    <img class="miniature" src="images/<?= $livre->getCouverture() ?>" alt="<?= $livre->getTitre() ?>">
                 </td>
-                <td><?= $livre["titre"] ?></td>
-                <td><?= $livre["auteur"] ?></td>
+                <td><?= $livre->getTitre() ?></td>
+                <td><?= $livre->getAuteur() ?></td>
                 <td>
-                    <a href="<?= lien("livre", "modifier", $livre["id"]) ?>"><i class=" fa fa-edit"></i></a>
-                    <a href="<?= lien("livre", "supprimer", $livre["id"]) ?>"><i class="fa fa-trash"></i></a>
+                    <a href="<?= lien("livre", "modifier", $livre->getId()) ?>"><i class="fa fa-edit"></i></a>
+                    <a href="<?= lien("livre", "supprimer", $livre->getId()) ?>"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         <?php endforeach; ?>

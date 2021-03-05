@@ -1,4 +1,4 @@
-<table class="table table-bordered table-striped text-center">
+<table class="table table-bordered table-striped">
     <thead class="thead-dark">
         <th>ID</th>
         <th>Pseudo</th>
@@ -9,11 +9,11 @@
     <tbody>
         <?php foreach($abonnes as $abonne):  ?>
             <tr>
-                <td><?= $abonne["id"] ?></td>
-                <td><?= $abonne["pseudo"] ?></td>
+                <td><?= $abonne->getId() ?></td>
+                <td><?= $abonne->getPseudo() ?></td>
                 <td>
                     <?php 
-                        switch($abonne["niveau"]){
+                        switch($abonne->getNiveau()){
                             case 10:
                                 echo "Lecteur";
                             break;
@@ -30,8 +30,8 @@
                 </td>
 
                 <td>
-                    <a href="abonne_modifier.php?id=<?= $abonne["id"] ?>"><i class="fa fa-edit"></i></a>
-                    <a class="ml-4" href="abonne_supprimer.php?id=<?= $abonne["id"] ?>"><i class="fa fa-trash"></i></a>
+                    <a href="abonne_modifier.php?id=<?= $abonne->getId() ?>"><i class="fa fa-edit"></i></a>
+                    <a href="abonne_supprimer.php?id=<?= $abonne->getId() ?>"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         <?php endforeach; ?>

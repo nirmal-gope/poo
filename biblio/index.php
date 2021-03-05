@@ -1,41 +1,31 @@
 <?php
 
-include "includes/init.inc.php";
-include "Controleurs/AbonneControleur.php";
-include "Controleurs/LivreControleur.php";
-include "vues/accueil/index.html.php";
+include_once "includes/init.inc.php";
 
 // URL ?controleur=abonne&methode=liste
-if ($_GET) {
-    if (!empty($_GET["controleur"])) {
+if( $_GET ){
+    if( !empty($_GET["controleur"]) ){
         $nomControleur = $_GET["controleur"];
     } else {
         $nomControleur = "accueil";
     }
 
-    if (!empty($_GET["methode"])) {
+    if( !empty($_GET["methode"]) ) {
         $methode = $_GET["methode"];
     } else {
-        $methode = "liste";
+        $methode = $nomControleur== "accueil" ? "index" : "liste";
     }
 
     $id = !empty($_GET["id"]) ? $_GET["id"] : null;
+} else {
+    // s'il n'a pas de Query String dans l'url, on affiche la page d'accueil 
+    $nomControleur = "accueil";
+    $methode = "index";
+    $id = null;
 }
 
-$classeControleur = ucfirst($nomControleur) . "Controleur";
-/*
-ex: $classeControleur = "AbonneControleur"
-ucfirst : met la 1er lettre d'une chîne de caractère en majuscule
-*/
-$controleur = new $classeControleur; //ex : $controleur est un objet de la classe AbonneControleur
-$controleur->$methode($id); // $abonneControleur->liste()
+$classeControleur = "Controleurs\\" . ucfirst($nomControleur) . "Controleur";  //ex: $classeControleur = "Controleurs\AbonneControleur"
+// ucfirst : met la 1er lettre d'une chaîne de caratère en majuscule
+$controleur = new $classeControleur; // ex: $controleur est un objet de la classe AbonneControleur
+$controleur->$methode($id);              // $abonneControleur->liste()  
 
-
-
-
-// include "vues/header.html.php";
-// $pdostatement = $pdo->query("SELECT * FROM livre");
-// $livres = $pdostatement->fetchAll(PDO::FETCH_ASSOC);
-// $livresNonRendus = livresNonRendus();
-// include "vues/index.html.php";
-// include "vues/footer.html.php";
