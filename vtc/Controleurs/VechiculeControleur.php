@@ -42,7 +42,6 @@ class VechiculeControleur extends BaseControleur
                 $vechicule->setModele($modele);
                 $vechicule->setCouleur($couleur);
                 $vechicule->setImmatriculation($immatriculation);
-
                 $resultat = $VechiculeModele->insertInto($vechicule);
 
                 if ($resultat) {

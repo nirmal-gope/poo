@@ -53,6 +53,6 @@ class VechiculeModele extends Modele
 
     public function delete($vechicule)
     {
-        return self::pdo()->exec("DELETE FROM vehicule WHERE id_vehicule = " . $vechicule->getId_vehicule());
+        return self::pdo()->exec("DELETE FROM vehicule WHERE id_vehicule = $vechicule->getId_vehicule()");
     }
 }
