@@ -2,7 +2,7 @@
 
 namespace Modeles\Entites;
 
-class Vechicule extends Entite
+class Vechicule 
 {
     private $id_vehicule;
     private $modele;

@@ -2,7 +2,7 @@
 
 namespace Modeles\Entites;
 
-class Association extends Entite
+class Association
 {
     private $id_association;
     private $id_vehicule;

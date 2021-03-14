@@ -2,7 +2,7 @@
 
 namespace Modeles\Entites;
 
-class Conducteur extends Entite
+class Conducteur
 {
     private $id_conducteur;
     private $prenom;

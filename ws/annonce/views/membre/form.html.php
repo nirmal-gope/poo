@@ -35,14 +35,14 @@
             <label for="statut">Statut</label>
             <select name="statut" id="statut" class="form-control">
                 <option>choisir</option>
-                <option value=10 <?= !empty($membre) && $membre["statut"] == 10 ? 'selected' : ''; ?>>Abonne</option>
-                <option value=30 <?= !empty($membre) && $membre["statut"] == 30 ? 'selected' : ''; ?>>Vendeur</option>
+                <option value=10 <?= !empty($membre) && $membre->getStatut() == 10 ? 'selected' : ''; ?>>Abonne</option>
+                <option value=30 <?= !empty($membre) && $membre->getStatut() == 30 ? 'selected' : ''; ?>>Vendeur</option>
             </select>
         </div>
 
         <button type="submit" class="btn btn-primary" name="btSupprimer">
-            <?= empty($abonne) ? "Enregistrer" : (!empty($mode) && $mode == "suppression" ? "Supprimer" : "Modifier") ?>
+            <?= empty($membre) ? "Enregistrer" : (!empty($mode) && $mode == "suppression" ? "Supprimer" : "Modifier") ?>
         </button>
-        <a href="abonne_liste.php" class="btn btn-danger">Annuler</a>
+        <a href="<?=lien("membre", "list")?>" class="btn btn-danger">Annuler</a>
     </form>
 </div>

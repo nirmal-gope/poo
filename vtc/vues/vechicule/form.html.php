@@ -23,6 +23,6 @@
     <button type="submit" class="btn btn-primary" name="btSupprimer">
         <?= empty($vechicule) ? "Enregistrer" : (!empty($mode) && $mode == "suppression" ? "Supprimer" : "Modifier") ?>
     </button>
-    <a href="livre_liste.php" class="btn btn-danger">Annuler</a>
+    <a href="lien("vechicule", "liste")" class="btn btn-danger">Annuler</a>
 
 </form>

@@ -51,15 +51,17 @@ function dump($variable)
     var_dump($variable);
     echo "</pre>";
 }
+
 function selectAll($tableName)
 {
     global $pdo;
     $pdostatement = $pdo->query("SELECT * FROM " . $tableName);
     return $pdostatement !== FALSE ? $pdostatement->fetchAll(PDO::FETCH_ASSOC) : $pdostatement;
 }
+
 function selectById($tableName, $id)
 {
-    // SELECT * FROM abonne WHERE id = 2
+
     global $pdo;
     $pdostatement = $pdo->query("SELECT * FROM $tableName WHERE id = $id");
     if ($pdostatement) {
@@ -68,13 +70,14 @@ function selectById($tableName, $id)
         return false;
     }
 }
+
 function insertInto(string $table, array $donnees)
 {
     $texteRequete = "INSERT INTO $table (";
-    $champs = array_keys($donnees); // array_keys retourne un array contenant les indices de $donnees
+    $champs = array_keys($donnees);
     $txtChamps = "";
     foreach ($champs as $col) {
-        $txtChamps .= ($txtChamps ? ", " : "") . $col;  // si txtChamps n'est pas vide, on ajoute une , sinon rien puis on ajoute le nom du champ
+        $txtChamps .= ($txtChamps ? ", " : "") . $col;
     }
     $texteRequete .= $txtChamps . ") VALUES (";
     $txtValeurs = "";
@@ -91,7 +94,26 @@ function insertInto(string $table, array $donnees)
     return $pdostatement->execute();
 }
 
-function lien($controleur, $methode, $id = null)
+
+function lien($controller, $method, $id = null)
 {
-    return "?controleur=$controleur&methode=$methode" . ($id ? "&id=$id" : "");
+    return "?controller=$controller&method=$method" . ($id ? "&id=$id" : "");
+}
+
+
+
+function livresNonRendus(){
+    global $pdo;
+    $texteRequete = "SELECT l.id
+                     FROM livre l JOIN emprunt e ON l.id = e.livre_id
+                     WHERE date_retour IS NULL";
+    $pdostatement = $pdo->query($texteRequete);
+    return $pdostatement->fetchAll(PDO::FETCH_COLUMN);
+}
+
+function EmpruntsParAbonneId(int $id){
+    global $pdo;
+    $texteRequete = "SELECT * FROM emprunt e WHERE abonne_id = $id";
+    $requete = $pdo->query($texteRequete);
+    return $requete->fetchAll(PDO::FETCH_ASSOC);
 }

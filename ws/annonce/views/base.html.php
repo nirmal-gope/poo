@@ -12,7 +12,7 @@
 <body>
     <div class="container-fluid p-0">
         <nav class="navbar navbar-light navbar-expand-xl " style="background-color: #5bc0de;">
-            <a class="navbar-brand" href="index.php">Consession Voitures</a>
+            <a class="navbar-brand" href="./">Consession Voitures</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -20,36 +20,19 @@
                 <ul class="navbar-nav ml-auto">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="gestion_voitures.php">Gestion des voitures</a>
+                        <a class="nav-link" href=" <?= lien("voiture", "list") ?> ">Gestion des voitures</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="gestion_membres.php">Gestion des membres</a>
+                        <a class="nav-link" href="<?= lien("membre", "list") ?> ">Gestion des membres</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= (isConnected()) ? "ajouter_voiture.php" : "connexion.php" ?>">Publier une annonce</a>
+                        <a class="nav-link" href="<?= lien("voiture", "ajouter") ?> ">Publier une annonce</a>
                     </li>
 
-                    <?php if ($abonneConnecte = isConnected()) : ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="profil.php">
-                                <?= $abonneConnecte["pseudo"] ?>
-                            </a>
+                            <a class="nav-link" href="<?= lien("membre", "ajouter") ?> ">Inscription</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="deconnexion.php">
-                                Déconnexion
-                            </a>
-                        </li>
-
-                    <?php else : ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="inscription.php">Inscription</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="connexion.php">Connexion</a>
-                        </li>
-
-                    <?php endif; ?>
+   
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contact</a>
                     </li>

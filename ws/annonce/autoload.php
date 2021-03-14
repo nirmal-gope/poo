@@ -1,7 +1,7 @@
 <?php
-function loadClass($class)
+function autoloadClass($class)
 {
     $class = str_replace("\\", "/", $class);
     include $class . ".php";
 }
-spl_autoload_register("loadClass");
+spl_autoload_register("autoloadClass");
